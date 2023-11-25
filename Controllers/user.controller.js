@@ -12,6 +12,7 @@ export const userRegistration = async (req, res) => {
 
     try {
         const { password, email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage} = req.body;
+        console.log(profileImage);
         const isAlreadyData = await User.find();
         const existingUser = isAlreadyData.find((user) => user.email === email);
 
