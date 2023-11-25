@@ -29,6 +29,16 @@ dbConnect();
     });
 
    
+    app.get('/', (req, res) => {
+        const frontend = `
+        <div>
+        <ul>
+          <li>  Frontend Link => <a href="https://frontend-assign-mentor.vercel.app/">Please Click here to send and post data</a></li>        
+          </ul> 
+          </div>        
+        `;
+        res.send(`The assign-Mentor app is working <br><br>${frontend}`);
+      });
     
 
 
