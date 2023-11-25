@@ -13,6 +13,12 @@ export const userRegistration = async (req, res) => {
     try {
         const { password, email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage} = req.body;
         console.log(profileImage);
+        const now = new Date().toDateString();
+        const randomColorValue = randomColor();
+        const colorData = {
+            date: now,
+            color: randomColorValue,
+        };
         const isAlreadyData = await User.find();
         const existingUser = isAlreadyData.find((user) => user.email === email);
 
@@ -21,7 +27,7 @@ export const userRegistration = async (req, res) => {
         }
 
         const hashPass = await bcrypt.hash(password, 10);
-        const newUser = new User({password: hashPass,email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage });
+        const newUser = new User({password: hashPass,email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage,colorData});
         await newUser.save();
         res.status(201).json({ message: `User ${firstName, lastName} successfully registered` });
 

@@ -57,6 +57,11 @@ const userSchema = mongoose.Schema({
         
     },
     
+    profileImage: {
+        type: String,
+      
+    },
+    
     colordata: [
         {
             date: {
@@ -67,10 +72,7 @@ const userSchema = mongoose.Schema({
                 type: String,
               
             },
-            profileImage: {
-                type: String,
-              
-            },
+           
         },
     ],
 
