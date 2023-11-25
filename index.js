@@ -33,11 +33,11 @@ dbConnect();
         const frontend = `
         <div>
         <ul>
-          <li>  Frontend Link => <a href="https://frontend-assign-mentor.vercel.app/">Please Click here to send and post data</a></li>        
+          <li>  Frontend Link => <a href="https://project-name-frontend-six.vercel.app/">Please Click here to send and post data</a></li>        
           </ul> 
           </div>        
         `;
-        res.send(`The assign-Mentor app is working <br><br>${frontend}`);
+        res.send(`The Dress Suggestion app is working <br><br>${frontend}`);
       });
     
 

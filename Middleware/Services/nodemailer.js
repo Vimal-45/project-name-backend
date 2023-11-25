@@ -32,7 +32,7 @@ export const emailSender = async (req, res) => {
         await User.updateOne({email:email},{string:randomString})
 
               
-        const resetLink = `http://localhost:3000/reset?string=${randomString}`;    
+        const resetLink = `https://project-name-frontend-six.vercel.app/reset?string=${randomString}`;    
 
         const emailDetails = {
             from: "vimalfsd@gmail.com",
