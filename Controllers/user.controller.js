@@ -15,7 +15,7 @@ export const userRegistration = async (req, res) => {
         console.log(profileImage);
         const now = new Date().toDateString();
         const randomColorValue = randomColor();
-        const colorData = {
+        const colordata = {
             date: now,
             color: randomColorValue,
         };
@@ -27,7 +27,7 @@ export const userRegistration = async (req, res) => {
         }
 
         const hashPass = await bcrypt.hash(password, 10);
-        const newUser = new User({password: hashPass,email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage,colorData});
+        const newUser = new User({password: hashPass,email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage, colordata});
         await newUser.save();
         res.status(201).json({ message: `User ${firstName, lastName} successfully registered` });
 
