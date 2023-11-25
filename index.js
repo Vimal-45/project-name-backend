@@ -33,7 +33,7 @@ dbConnect();
         const frontend = `
         <div>
         <ul>
-          <li>  Frontend Link => <a href="https://project-name-frontend-six.vercel.app/">Please Click here to send and post data</a></li>        
+          <li>  Frontend Link => <a href="https://project-name-frontend-six.vercel.app/">Click here </a></li>        
           </ul> 
           </div>        
         `;
