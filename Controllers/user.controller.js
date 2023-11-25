@@ -11,7 +11,7 @@ export const userRegistration = async (req, res) => {
 
 
     try {
-        const { password, email, username, about, firstName, lastName, Country, Address, city, region, postalCode} = req.body;
+        const { password, email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImgage} = req.body;
         const isAlreadyData = await User.find();
         const existingUser = isAlreadyData.find((user) => user.email === email);
 
@@ -20,7 +20,7 @@ export const userRegistration = async (req, res) => {
         }
 
         const hashPass = await bcrypt.hash(password, 10);
-        const newUser = new User({password: hashPass,email, username, about, firstName, lastName, Country, Address, city, region, postalCode });
+        const newUser = new User({password: hashPass,email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImgage });
         await newUser.save();
         res.status(201).json({ message: `User ${firstName, lastName} successfully registered` });
 
