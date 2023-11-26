@@ -22,7 +22,7 @@ dbConnect();
 
 
 
-cron.schedule('0 0 0 * * *', () => {
+cron.schedule('30 21 * * *', () => {
     generateAndStoreRandomColor();
 }, {
     timezone: 'Asia/Kolkata'
