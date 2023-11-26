@@ -22,35 +22,21 @@ dbConnect();
 
 
 
-// cron.schedule('38 21 * * *', () => {
-//     generateAndStoreRandomColor();
-// }, {
-//     timezone: 'Asia/Kolkata'
-// });
 
-schedule.scheduleJob('24 22 * * *', () => {
+
+schedule.scheduleJob('44 22 * * *', () => {
     generateAndStoreRandomColor();
 });
 
 
 
 app.get('/', (req, res) => {
-    const currentTime = new Date();
-    const hours = currentTime.getHours();
-    const minutes = currentTime.getMinutes();
-    const seconds = currentTime.getSeconds();
-
-    // Add leading zeros if needed
-    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-    console.log(formattedTime);
-
-
+   
     const frontend = `
             <div>
             <ul>
               <li>  Frontend Link => <a href="https://project-name-frontend-six.vercel.app/">Click here </a></li>        
-              <li> time now ${formattedTime} </li>        
+                     
               </ul> 
               </div>        
             `;

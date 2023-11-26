@@ -11,13 +11,24 @@ export const userRegistration = async (req, res) => {
 
 
     try {
-        const { password, email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage} = req.body;
+        const { password, email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage } = req.body;
         console.log(profileImage);
-        const now = new Date().toDateString().toLocaleString('en-US',{ timeZone: 'Asia/Kolkata' });
-        console.log(now);
+        const now = new Date();
+        const options = {
+            timeZone: 'Asia/Kolkata',
+            weekday: 'short',
+            month: 'short',
+            day: '2-digit',
+            year: 'numeric',
+        };
+
+        const indianTime = now.toLocaleString('en-US', options).replace(',', '');
+
+        // console.log(indianTime);
+
         const randomColorValue = randomColor();
         const colordata = {
-            date: now,
+            date: indianTime,
             color: randomColorValue,
         };
         const isAlreadyData = await User.find();
@@ -28,7 +39,7 @@ export const userRegistration = async (req, res) => {
         }
 
         const hashPass = await bcrypt.hash(password, 10);
-        const newUser = new User({password: hashPass,email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage, colordata});
+        const newUser = new User({ password: hashPass, email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage, colordata });
         await newUser.save();
         res.status(201).json({ message: `User ${firstName, lastName} successfully registered` });
 
@@ -57,7 +68,7 @@ export const userLogin = async (req, res) => {
 
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
         await User.updateOne({ _id: user._id }, { token: token })
-        res.status(200).json({ message: 'Logging successfully', token:token, email: email });
+        res.status(200).json({ message: 'Logging successfully', token: token, email: email });
 
     } catch (error) {
         console.error(error);
@@ -96,14 +107,14 @@ export const resetPassword = async (req, res) => {
 
 
 
-export const getUser = async(req, res)=>{
+export const getUser = async (req, res) => {
     try {
         const userId = req.user._id
         // console.log(userId);
         const user = await User.findById(userId)
         // console.log(user);
         res.status(200).json(user)
-        
+
     } catch (error) {
         console.log("getuser error", error);
     }
@@ -114,28 +125,40 @@ export const generateAndStoreRandomColor = async () => {
     try {
         const users = await User.find();
 
-        if (users.length > 0)
-         {  for (const user of users) {
-            const now = new Date().toDateString();
-            const randomColorValue = randomColor();
-            const colorData = {
-                date: now,
-                color: randomColorValue,
-            };
+        if (users.length > 0) {
+            for (const user of users) {
+                const now = new Date();
+                const options = {
+                    timeZone: 'Asia/Kolkata',
+                    weekday: 'short',
+                    month: 'short',
+                    day: '2-digit',
+                    year: 'numeric',
+                };
 
-            console.log(colorData);
-            await User.findByIdAndUpdate(
-                user._id,
-                { $push: { colordata: colorData } },
-                { new: true }
-            );
+                const indianTime = now.toLocaleString('en-US', options).replace(',', '');
+
+                console.log(indianTime);
+
+                const randomColorValue = randomColor();
+                const colorData = {
+                    date: indianTime,
+                    color: randomColorValue,
+                };
+
+                console.log(colorData);
+                await User.findByIdAndUpdate(
+                    user._id,
+                    { $push: { colordata: colorData } },
+                    { new: true }
+                );
+            }
+
+            console.log('Color data updated for all users.')
+        } else {
+            console.log('No users found. Skipping color data update.');
         }
 
-        console.log('Color data updated for all users.')
-    }else{
-        console.log('No users found. Skipping color data update.');
-    }
-     
     } catch (error) {
         console.error('Error updating color data:', error);
     }
