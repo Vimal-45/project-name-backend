@@ -24,7 +24,7 @@ dbConnect();
 
 
 
-schedule.scheduleJob('44 22 * * *', () => {
+schedule.scheduleJob('54 22 * * *', () => {
     generateAndStoreRandomColor();
 });
 

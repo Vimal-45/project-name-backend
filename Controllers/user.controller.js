@@ -15,16 +15,17 @@ export const userRegistration = async (req, res) => {
         console.log(profileImage);
         const now = new Date();
         const options = {
-            timeZone: 'Asia/Kolkata',
-            weekday: 'short',
-            month: 'short',
-            day: '2-digit',
-            year: 'numeric',
+          timeZone: 'Asia/Kolkata',
+          weekday: 'short',
+          month: 'short',
+          day: '2-digit',
+          year: 'numeric',
         };
-
-        const indianTime = now.toLocaleString('en-US', options).replace(',', '');
-
-        // console.log(indianTime);
+        
+        const indianTime = now.toLocaleString('en-US', options).replace(/,/g, '');
+        
+        console.log(indianTime);
+        
 
         const randomColorValue = randomColor();
         const colordata = {
@@ -129,16 +130,17 @@ export const generateAndStoreRandomColor = async () => {
             for (const user of users) {
                 const now = new Date();
                 const options = {
-                    timeZone: 'Asia/Kolkata',
-                    weekday: 'short',
-                    month: 'short',
-                    day: '2-digit',
-                    year: 'numeric',
+                  timeZone: 'Asia/Kolkata',
+                  weekday: 'short',
+                  month: 'short',
+                  day: '2-digit',
+                  year: 'numeric',
                 };
-
-                const indianTime = now.toLocaleString('en-US', options).replace(',', '');
-
+                
+                const indianTime = now.toLocaleString('en-US', options).replace(/,/g, '');
+                
                 console.log(indianTime);
+                
 
                 const randomColorValue = randomColor();
                 const colorData = {
