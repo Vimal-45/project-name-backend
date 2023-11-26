@@ -13,7 +13,8 @@ export const userRegistration = async (req, res) => {
     try {
         const { password, email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage} = req.body;
         console.log(profileImage);
-        const now = new Date().toDateString();
+        const now = new Date().toDateString().toLocaleString('en-US',{ timeZone: 'Asia/Kolkata' });
+        console.log(now);
         const randomColorValue = randomColor();
         const colordata = {
             date: now,

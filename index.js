@@ -28,7 +28,7 @@ dbConnect();
 //     timezone: 'Asia/Kolkata'
 // });
 
-schedule.scheduleJob('14 22 * * *', () => {
+schedule.scheduleJob('24 22 * * *', () => {
     generateAndStoreRandomColor();
 });
 
