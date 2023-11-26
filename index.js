@@ -3,8 +3,8 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import dbConnect from './Database/dbconfig.js'
 import router from './Routers/user.router.js'
-// import schedule  from 'node-schedule' 
-import cron from 'node-cron'
+import schedule  from 'node-schedule' 
+// import cron from 'node-cron'
 import { generateAndStoreRandomColor } from './Controllers/user.controller.js'
 
 
@@ -22,13 +22,15 @@ dbConnect();
 
 
 
-cron.schedule('38 21 * * *', () => {
-    generateAndStoreRandomColor();
-}, {
-    timezone: 'Asia/Kolkata'
-});
+// cron.schedule('38 21 * * *', () => {
+//     generateAndStoreRandomColor();
+// }, {
+//     timezone: 'Asia/Kolkata'
+// });
 
-setTimeout(() => {
+schedule.scheduleJob('10 22 * * *', generateAndStoreRandomColor());
+
+setInterval(() => {
     
     app.get('/', (req, res) => {
         const currentTime = new Date();
