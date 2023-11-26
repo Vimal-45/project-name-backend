@@ -3,7 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import dbConnect from './Database/dbconfig.js'
 import router from './Routers/user.router.js'
-import schedule  from 'node-schedule' 
+import schedule from 'node-schedule'
 // import cron from 'node-cron'
 import { generateAndStoreRandomColor } from './Controllers/user.controller.js'
 
@@ -28,23 +28,25 @@ dbConnect();
 //     timezone: 'Asia/Kolkata'
 // });
 
-schedule.scheduleJob('10 22 * * *', generateAndStoreRandomColor());
+schedule.scheduleJob('14 22 * * *', () => {
+    generateAndStoreRandomColor();
+});
 
-setInterval(() => {
-    
-    app.get('/', (req, res) => {
-        const currentTime = new Date();
-        const hours = currentTime.getHours();
-        const minutes = currentTime.getMinutes();
-        const seconds = currentTime.getSeconds();
-    
-        // Add leading zeros if needed
-        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    
-        console.log(formattedTime);
-    
-    
-        const frontend = `
+
+
+app.get('/', (req, res) => {
+    const currentTime = new Date();
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes();
+    const seconds = currentTime.getSeconds();
+
+    // Add leading zeros if needed
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    console.log(formattedTime);
+
+
+    const frontend = `
             <div>
             <ul>
               <li>  Frontend Link => <a href="https://project-name-frontend-six.vercel.app/">Click here </a></li>        
@@ -52,9 +54,9 @@ setInterval(() => {
               </ul> 
               </div>        
             `;
-        res.send(`The Dress Suggestion app is working <br><br>${frontend}`);
-    });
-}, 1000 );
+    res.send(`The Dress Suggestion app is working <br><br>${frontend}`);
+});
+
 
 
 
