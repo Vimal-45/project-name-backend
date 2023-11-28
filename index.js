@@ -24,22 +24,31 @@ dbConnect();
 
 
 
-schedule.scheduleJob('30 05 * * *', () => {
+schedule.scheduleJob('35 19 * * *', () => {
     generateAndStoreRandomColor();
 });
 
 
 
 app.get('/', (req, res) => {
-   
+    const currentTime = new Date();
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes();
+    const seconds = currentTime.getSeconds();
+
+    // Add leading zeros if needed
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    console.log(formattedTime);
+
     const frontend = `
-            <div>
+        <div>
             <ul>
-              <li>  Frontend Link => <a href="https://project-name-frontend-six.vercel.app/">Click here </a></li>        
-                     
-              </ul> 
-              </div>        
-            `;
+                <li>Frontend Link => <a href="https://project-name-frontend-six.vercel.app/">Click here </a></li>
+                <li>time now ${formattedTime}</li>
+            </ul>
+        </div>
+    `;
     res.send(`The Dress Suggestion app is working <br><br>${frontend}`);
 });
 
