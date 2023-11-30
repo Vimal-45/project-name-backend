@@ -10,7 +10,7 @@ dotenv.config()
 export const userRegistration = async (req, res) => {
 
     try {
-        const { password, email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage } = req.body;
+        const { password, email, username, profileImage } = req.body;
         console.log(profileImage);
         const now = new Date();
         const options = {
@@ -39,9 +39,9 @@ export const userRegistration = async (req, res) => {
         }
 
         const hashPass = await bcrypt.hash(password, 10);
-        const newUser = new User({ password: hashPass, email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage, colordata });
+        const newUser = new User({ password: hashPass, email, username, profileImage, colordata });
         await newUser.save();
-        res.status(201).json({ message: `User ${firstName, lastName} successfully registered` });
+        res.status(201).json({ message: `User ${username} successfully registered` });
 
     } catch (error) {
         
@@ -52,7 +52,7 @@ export const userRegistration = async (req, res) => {
 
 export const userLogin = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password} = req.body;
         const user = await User.findOne({ email });
 
         if (!user) {
