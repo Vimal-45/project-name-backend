@@ -9,7 +9,6 @@ dotenv.config()
 
 export const userRegistration = async (req, res) => {
 
-
     try {
         const { password, email, username, about, firstName, lastName, Country, Address, city, region, postalCode, profileImage } = req.body;
         console.log(profileImage);
@@ -44,11 +43,10 @@ export const userRegistration = async (req, res) => {
         await newUser.save();
         res.status(201).json({ message: `User ${firstName, lastName} successfully registered` });
 
-
-
     } catch (error) {
+        
+        res.status(200).json({ message: "Registration failed" });
         console.error(error);
-        res.status(500).json({ message: "Registration failed" });
     }
 }
 
@@ -104,6 +102,38 @@ export const resetPassword = async (req, res) => {
     }
 
 
+}
+
+
+export  const updateUser = async(req, res) =>{
+
+    try {
+        const {  email, username, firstName, lastName, Country, Address, city, region, postalCode, profileImage } = req.body;
+        const user = await User.findOne({ email })
+        // console.log(user);
+        const updatedFields = {};
+        if (firstName) updatedFields.firstName = firstName;
+        if (lastName) updatedFields.lastName = lastName;
+        if (Country) updatedFields.Country = Country;
+        if (Address) updatedFields.Address = Address;
+        if (city) updatedFields.city = city;
+        if (region) updatedFields.region = region;
+        if (postalCode) updatedFields.postalCode = postalCode;
+        if (profileImage) updatedFields.profileImage = profileImage;
+        if (username) updatedFields.username = username;
+
+        const result = await User.updateOne({ email }, { $set: updatedFields });
+
+        if (result.matchedCount === 0) {
+            res.status(200).json({ message: 'user not matched' })
+            return res.status(401).json({ message: 'user not matched' })
+        }
+        res.status(200).json({ message: ' User Infomation updated sucessfully' })
+        
+    } catch (error) {
+        console.log("error in userUpdate",error);
+    }
+        
 }
 
 
