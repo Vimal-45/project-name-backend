@@ -21,15 +21,6 @@ app.use(express.json())
 dbConnect();
 
 
-
-
-
-schedule.scheduleJob('05 20 * * *', () => {
-    generateAndStoreRandomColor();
-});
-
-
-
 app.get('/', (req, res) => {
     const currentTime = new Date();
     const hours = currentTime.getHours();
@@ -60,6 +51,9 @@ app.get('/', (req, res) => {
 app.use('/api/user', router)
 
 app.listen(PORT, () => {
+    schedule.scheduleJob('31 18 * * *', () => {
+    generateAndStoreRandomColor();
+});
     console.log('The app is listening with PORT:', PORT);
 
 })
