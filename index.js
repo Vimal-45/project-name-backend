@@ -19,7 +19,7 @@ app.use(express.json())
 
 
 dbConnect();
-schedule.scheduleJob('55 19 * * *', () => {
+schedule.scheduleJob('15 21 * * *', () => {
     generateAndStoreRandomColor();
 });
 
